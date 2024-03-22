@@ -133,10 +133,14 @@ public class SQLiteConnectionManager {
         try (Connection conn = DriverManager.getConnection(databaseURL);
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-                pstmt.setInt(1, id);
-                pstmt.setString(2, word);
+                if (word.matches("^[a-z]{4}$")){
+                    logger.log(Level.SEVERE, "Ignored as word is invalid.");
+                } else {
+                    pstmt.setInt(1, id);
+                    pstmt.setString(2, word);
+                    pstmt.executeUpdate();
+                }
 
-            pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -167,7 +171,7 @@ public class SQLiteConnectionManager {
             return false;
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
             return false;
         }
 
