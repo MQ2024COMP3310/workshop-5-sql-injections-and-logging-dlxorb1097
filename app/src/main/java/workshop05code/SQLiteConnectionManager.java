@@ -69,7 +69,8 @@ public class SQLiteConnectionManager {
 
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
+            logger.log(Level.WARNING, e.toString());
         }
     }
 
@@ -88,7 +89,8 @@ public class SQLiteConnectionManager {
                     return true;
                 }
             } catch (SQLException e) {
-                System.out.println(e.getMessage());
+                //System.out.println(e.getMessage());
+                logger.log(Level.WARNING, e.toString());
                 return false;
             }
         }
@@ -113,7 +115,8 @@ public class SQLiteConnectionManager {
                 return true;
 
             } catch (SQLException e) {
-                System.out.println(e.getMessage());
+                //System.out.println(e.getMessage());
+                logger.log(Level.WARNING, e.toString());
                 return false;
             }
         }
@@ -142,7 +145,8 @@ public class SQLiteConnectionManager {
                 }
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
+            logger.log(Level.WARNING, e.toString());
         }
 
     }
@@ -172,6 +176,7 @@ public class SQLiteConnectionManager {
 
         } catch (SQLException e) {
             //System.out.println(e.getMessage());
+            logger.log(Level.WARNING, e.toString());
             return false;
         }
 

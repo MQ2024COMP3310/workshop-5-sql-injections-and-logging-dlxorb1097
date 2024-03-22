@@ -17,6 +17,8 @@ import java.util.logging.Logger;
  */
 public class App {
     // Start code for logging exercise
+    
+    private static final Logger logger = Logger.getLogger(App.class.getName());
     static {
         // must set before the Logger
         // loads logging.properties from the classpath
@@ -24,10 +26,11 @@ public class App {
             LogManager.getLogManager().readConfiguration(new FileInputStream("resources/logging.properties"));
         } catch (SecurityException | IOException e1) {
             e1.printStackTrace();
+            logger.log(Level.WARNING, e1.toString());
         }
     }
 
-    private static final Logger logger = Logger.getLogger(App.class.getName());
+    
     // End code for logging exercise
     
     /**
@@ -60,7 +63,8 @@ public class App {
             String line;
             int i = 1;
             while ((line = br.readLine()) != null) {
-                System.out.println(line);
+                //System.out.println(line);
+                logger.log(Level.FINE, line);
                 wordleDatabaseConnection.addValidWord(i, line);
                 i++;
             }
@@ -75,33 +79,34 @@ public class App {
         // let's get them to enter a word
 
         try (Scanner scanner = new Scanner(System.in)) {
-            //System.out.print("Enter a 4 letter word for a guess or q to quit: ");
-            logger.log(Level.INFO, "Enter a 4 letter word for a guess or q to quit: ");
+            System.out.print("Enter a 4 letter word for a guess or q to quit: ");
+            //logger.log(Level.INFO, "Enter a 4 letter word for a guess or q to quit: ");
             String guess = scanner.nextLine();
 
             while (!guess.equals("q")) {
                 System.out.println("You've guessed '" + guess+"'.");
 
                 if (wordleDatabaseConnection.isValidWord(guess)) { 
-                    //System.out.println("Success! It is in the the list.\n");
-                    logger.log(Level.INFO, "Success! It is in the list.\n");
+                    System.out.println("Success! It is in the the list.\n");
+                    //logger.log(Level.INFO, "Success! It is in the list.\n");
                 } else if (guess.length() != 4){
-                    //System.out.println("Word is not four letters.\n");
-                    logger.log(Level.INFO, "Word is not four letters.\n");
+                    System.out.println("Word is not four letters.\n");
+                    //logger.log(Level.INFO, "Word is not four letters.\n");
                 } else if (!guess.equals(guess.toLowerCase())){
-                    //System.out.println("Word must all be in lowercase.\n");
-                    logger.log(Level.INFO, "Word must all be in lowercase.\n");
+                    System.out.println("Word must all be in lowercase.\n");
+                    //logger.log(Level.INFO, "Word must all be in lowercase.\n");
                 } else {
-                    //System.out.println("Sorry. This word is NOT in the the list.\n");
-                    logger.log(Level.INFO, "Sorry. This word is NOT in the list.\n");
+                    System.out.println("Sorry. This word is NOT in the the list.\n");
+                    //logger.log(Level.INFO, "Sorry. This word is NOT in the list.\n");
                 }
 
-                //System.out.print("Enter a 4 letter word for a guess or q to quit: " );
-                logger.log(Level.INFO, "Enter a 4 letter word for a guess or q to quit: " );
+                System.out.print("Enter a 4 letter word for a guess or q to quit: " );
+                //logger.log(Level.INFO, "Enter a 4 letter word for a guess or q to quit: " );
                 guess = scanner.nextLine();
             }
         } catch (NoSuchElementException | IllegalStateException e) {
             e.printStackTrace();
+            logger.log(Level.WARNING, e.toString());
         }
 
     }
